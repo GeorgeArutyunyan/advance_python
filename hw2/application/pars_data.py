@@ -1,9 +1,10 @@
 import csv
 import re
+from pprint import pprint
 
 
 def reader() -> list:
-    with open('/Users/georgearutyunyan/advanced_python/Homework2/data/phonebook_raw.csv',
+    with open('/Users/georgearutyunyan/python_advance/hw2/data/phonebook_raw.csv',
               encoding='utf-8') as f:
         rows = csv.reader(f, delimiter=',')
         contacts_list = list(rows)
@@ -40,18 +41,16 @@ def duplicate_deleting(new_list: list) -> list:
 
 def phone_editor(some_list: list) -> list:
     pattern = r'(\+7|8)\s*?\(?(\d{3})\)?\s*?-?\s*(\d{3})-?(\d{2})-?(\d{2})\s*\(?(доб.\s*\d*)?\)?'
-    substitution = r'+7(\2)\3-\5 \6'
+    substitution = r'+7(\2)-\3-\4-\5 \6'
     new_list = []
     for item in some_list:
         text = ' '.join(i for i in item)
         new = re.sub(pattern, substitution, text)
-        new_list.append(new)
+        new_list.append([new])
     return new_list
 
 
-def writer():
-    with open(r'/Users/georgearutyunyan/PycharmProjects/advanced_python/Homework2/data/phonebook.csv', 'w',
-              encoding='utf-8') as f:
+def writer(some_list: list) -> None:
+    with open(r'/Users/georgearutyunyan/python_advance/hw2/data/phonebook.csv', 'w') as f:
         datawriter = csv.writer(f, delimiter=',')
-        parses_list = (phone_editor(duplicate_deleting(split_names(reader()))))
-        datawriter.writerow(parses_list)
+        datawriter.writerows(some_list)
