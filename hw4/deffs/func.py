@@ -3,7 +3,7 @@ from hw4.data.data_list import nested_list
 
 class FlatIterator:
     def __init__(self, some_list):
-        self.some_list = self.one_list(some_list)
+        self.some_list = some_list
 
     def one_list(self, some_list):
         if not some_list:
